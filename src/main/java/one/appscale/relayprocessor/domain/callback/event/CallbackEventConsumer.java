@@ -15,11 +15,13 @@ import java.util.function.Consumer;
 @RequiredArgsConstructor
 @Profile("callback-event-consumer")
 public class CallbackEventConsumer {
+    private final EventMongoRepository repository;
+
     @Bean
     public Consumer<List<Event>> consumeCallbackEvent() {
-        return evenList -> {
-            log.info("received events: {}", evenList.size());
-            evenList.forEach(event -> log.debug("received: {}", event));
+        return eventList -> {
+            log.info("received events: {}", eventList.size());
+            repository.saveAll(eventList);
         };
     }
 }

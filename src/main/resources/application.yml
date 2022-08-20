@@ -20,14 +20,27 @@ app:
       idle-between-polls: 1000
     callback-reattribution:
       idle-between-polls: 1000
+  mongodb:
+    protocol: mongodb
+    user: admin
+    password: admin
+    host: localhost:27011
+    dbname: relaydb
+  env:
+    encrypt-password: ${ENCRYPT_PASSWORD}
 
 spring:
+  application:
+    name: relay-processor
   profiles:
     include: callback-event-consumer,callback-install-consumer,callback-reattribution-consumer
   kafka:
     consumer:
       properties:
         partition.assignment.strategy: org.apache.kafka.clients.consumer.CooperativeStickyAssignor
+  data:
+    mongodb:
+      uri: ${app.mongodb.protocol}://${app.mongodb.user}:${app.mongodb.password}@${app.mongodb.host}/${app.mongodb.dbname}
   cloud:
     stream:
       function:
@@ -43,3 +56,9 @@ spring:
               value.deserializer: one.appscale.relayprocessor.infra.kafka.serdes.ErrorLoggingDeserializer
               spring.deserializer.value.delegate.class: io.confluent.kafka.serializers.KafkaAvroDeserializer
               specific.avro.reader: true
+
+jasypt:
+  encryptor:
+    iv-generator-classname: org.jasypt.iv.NoIvGenerator
+    algorithm: PBEWithMD5AndDES
+    password: ${app.env.encrypt-password}

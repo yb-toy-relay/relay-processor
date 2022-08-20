@@ -15,11 +15,13 @@ import java.util.function.Consumer;
 @RequiredArgsConstructor
 @Profile("callback-install-consumer")
 public class CallbackReattributionConsumer {
+    private final ReattributionMongoRepository repository;
+
     @Bean
     public Consumer<List<Reattribution>> consumeCallbackReattribution() {
         return reattributionList -> {
             log.info("received reattributions: {}", reattributionList.size());
-            reattributionList.forEach(reattribution -> log.debug("received: {}", reattribution));
+            repository.saveAll(reattributionList);
         };
     }
 }

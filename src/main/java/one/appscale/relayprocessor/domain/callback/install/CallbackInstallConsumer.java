@@ -15,11 +15,13 @@ import java.util.function.Consumer;
 @RequiredArgsConstructor
 @Profile("callback-install-consumer")
 public class CallbackInstallConsumer {
+    private final InstallMongoRepository repository;
+
     @Bean
     public Consumer<List<Install>> consumeCallbackInstall() {
         return installList -> {
             log.info("received installs: {}", installList.size());
-            installList.forEach(install -> log.debug("received: {}", install));
+            repository.saveAll(installList);
         };
     }
 }
