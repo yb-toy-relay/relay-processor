@@ -1,0 +1,15 @@
+spring.cloud.stream:
+  bindings:
+    consumeCallbackEvent-in-0:
+      consumer:
+        use-native-decoding: true
+        batchMode: true
+      group: callback-event-batch-consumer
+      destination: callback-event-v1
+  kafka:
+    bindings:
+      consumeCallbackEvent-in-0:
+        consumer:
+          configuration:
+            fetch.min.bytes: 10000000 # 10mb
+            max.poll.records: 300

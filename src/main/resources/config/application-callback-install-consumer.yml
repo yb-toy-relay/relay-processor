@@ -1,0 +1,15 @@
+spring.cloud.stream:
+  bindings:
+    consumeCallbackInstall-in-0:
+      consumer:
+        use-native-decoding: true
+        batchMode: true
+      group: callback-install-batch-consumer
+      destination: callback-install-v1
+  kafka:
+    bindings:
+      consumeCallbackInstall-in-0:
+        consumer:
+          configuration:
+            fetch.min.bytes: 10000000 # 10mb
+            max.poll.records: 300

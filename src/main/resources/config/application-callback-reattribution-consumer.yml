@@ -1,0 +1,15 @@
+spring.cloud.stream:
+  bindings:
+    consumeCallbackReattribution-in-0:
+      consumer:
+        use-native-decoding: true
+        batchMode: true
+      group: callback-reattribution-batch-consumer
+      destination: callback-reattribution-v1
+  kafka:
+    bindings:
+      consumeCallbackReattribution-in-0:
+        consumer:
+          configuration:
+            fetch.min.bytes: 10000000 # 10mb
+            max.poll.records: 300
