@@ -1,0 +1,44 @@
+management:
+  endpoints:
+    web:
+      exposure:
+        include: metrics,health
+
+server:
+  port: 8883
+
+logging:
+  level:
+    root: info
+
+app:
+  kafka:
+    install:
+      idle-between-polls: 1000
+    event:
+      idle-between-polls: 1000
+    reattribution:
+      idle-between-polls: 1000
+
+spring:
+  profiles:
+    include: install-consumer,event-consumer,reattribution-consumer
+  kafka:
+    consumer:
+      properties:
+        partition.assignment.strategy: org.apache.kafka.clients.consumer.CooperativeStickyAssignor
+  cloud:
+    stream:
+      function:
+        definition: consumeInstall;consumeEvent;consumeReattribution;
+      kafka:
+        binder:
+          brokers: localhost:9092
+        default:
+          consumer:
+            configuration:
+              schema.registry.url: http://localhost:8081
+              key.deserializer: org.apache.kafka.common.serialization.LongDeserializer
+              value.deserializer: one.appscale.relayprocessor.infra.kafka.serdes.ErrorLoggingDeserializer
+              spring.deserializer.value.delegate.class: io.confluent.kafka.serializers.KafkaAvroDeserializer
+              specific.avro.reader: true
