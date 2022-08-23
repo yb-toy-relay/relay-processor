@@ -12,7 +12,7 @@ app:
 spring:
   data:
     mongodb:
-      uri: ${app.mongodb.protocol}://${app.mongodb.user}:${app.mongodb.password}@${app.mongodb.host}/${app.mongodb.dbname}?connectTimeoutMS=300000&ssl=false
+      uri: ${app.mongodb.protocol}://${app.mongodb.user}:${app.mongodb.password}@${app.mongodb.host}/${app.mongodb.dbname}?connectTimeoutMS=300000
   cloud:
     stream:
       kafka:
