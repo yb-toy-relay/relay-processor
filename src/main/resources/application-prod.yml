@@ -1,0 +1,27 @@
+server:
+  port: 8080
+
+app:
+  mongodb:
+    protocol: mongodb+srv
+    user: prod_relay_all
+    password: ENC(9uNdlY2Ff+fs48Tb4pdDRvlSSRuF/fFtGuC/N+xgyIE=)
+    host: prod-relay.jyryu.mongodb.net
+    dbname: relaydb
+
+spring:
+  cloud:
+    stream:
+      kafka:
+        binder:
+          brokers: b-3.prodkafkarelay.60a30q.c4.kafka.ap-northeast-2.amazonaws.com:9092,b-1.prodkafkarelay.60a30q.c4.kafka.ap-northeast-2.amazonaws.com:9092,b-2.prodkafkarelay.60a30q.c4.kafka.ap-northeast-2.amazonaws.com:9092
+        default:
+          consumer:
+            configuration:
+              schema.registry.url: aws-glue-schema-registry-has-no-http-endpoint
+              spring.deserializer.value.delegate.class: com.amazonaws.services.schemaregistry.deserializers.avro.AWSKafkaAvroDeserializer
+              region: ap-northeast-2
+              registry.name: prod-relay-schema-registry
+              avroRecordType: SPECIFIC_RECORD
+              timeToLiveMillis: 86400000 # todo
+              cacheSize: 200 # todo
