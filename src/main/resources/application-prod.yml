@@ -8,7 +8,7 @@ app:
 spring:
   data:
     mongodb:
-      uri: mongodb+srv://prod_relay_all:${app.mongodb.password}@prod-relay.jyryu.mongodb.net/relaydb?retryWrites=true&w=majority
+      uri: mongodb+srv://prod_relay_all:${app.mongodb.password}@prod-relay.jyryu.mongodb.net/relaydb
   cloud:
     stream:
       kafka:

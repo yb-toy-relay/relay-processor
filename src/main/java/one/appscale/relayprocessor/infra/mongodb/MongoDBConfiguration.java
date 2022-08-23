@@ -1,7 +1,9 @@
 package one.appscale.relayprocessor.infra.mongodb;
 
 import com.mongodb.MongoClientSettings;
+import com.mongodb.WriteConcern;
 import com.mongodb.connection.ConnectionPoolSettings;
+import com.mongodb.connection.SocketSettings;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -12,6 +14,12 @@ public class MongoDBConfiguration {
     @Bean
     public MongoClientSettings mongoClientSettings() {
         return MongoClientSettings.builder()
+                                  .retryWrites(true)
+                                  .writeConcern(WriteConcern.MAJORITY)
+                                  .applyToSocketSettings((SocketSettings.Builder builder) -> {
+                                      builder.connectTimeout(10, TimeUnit.SECONDS)
+                                             .readTimeout(10, TimeUnit.SECONDS);
+                                  })
                                   .applyToConnectionPoolSettings((ConnectionPoolSettings.Builder builder) -> {
                                       builder.maxConnectionIdleTime(10, TimeUnit.SECONDS);
                                   })
