@@ -3,16 +3,12 @@ server:
 
 app:
   mongodb:
-    protocol: mongodb+srv
-    user: prod_relay_all
     password: ENC(9uNdlY2Ff+fs48Tb4pdDRvlSSRuF/fFtGuC/N+xgyIE=)
-    host: prod-relay.jyryu.mongodb.net
-    dbname: relaydb
 
 spring:
   data:
     mongodb:
-      uri: ${app.mongodb.protocol}://${app.mongodb.user}:${app.mongodb.password}@${app.mongodb.host}/${app.mongodb.dbname}
+      uri: mongodb+srv://prod_relay_all:${app.mongodb.password}@prod-relay.jyryu.mongodb.net/relaydb
   cloud:
     stream:
       kafka:
