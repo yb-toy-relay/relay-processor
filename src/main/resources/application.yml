@@ -40,7 +40,7 @@ spring:
         partition.assignment.strategy: org.apache.kafka.clients.consumer.CooperativeStickyAssignor
   data:
     mongodb:
-      uri: ${app.mongodb.protocol}://${app.mongodb.user}:${app.mongodb.password}@${app.mongodb.host}/${app.mongodb.dbname}
+      uri: ${app.mongodb.protocol}://${app.mongodb.user}:${app.mongodb.password}@${app.mongodb.host}/${app.mongodb.dbname}?authSource=admin
   cloud:
     stream:
       function:
