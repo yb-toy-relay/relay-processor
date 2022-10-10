@@ -26,6 +26,10 @@ app:
     password: admin
     host: localhost:27011
     dbname: relaydb
+  cache:
+    master-key: X1dxOtz2mAJBVUSzOobt
+    event-tokens:
+      duration: 10m
   env:
     encrypt-password: ${ENCRYPT_PASSWORD}
 
