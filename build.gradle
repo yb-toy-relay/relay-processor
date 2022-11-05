@@ -9,7 +9,7 @@ version = '1.0.0'
 sourceCompatibility = '17'
 ext {
     springCloudVersion = '2021.0.3'
-    relaySchemaVersion = "0.0.2"
+    relaySchemaVersion = "1.1.1-custom-parameter"
 }
 
 repositories {
